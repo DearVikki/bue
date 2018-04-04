@@ -21,9 +21,12 @@ exports._compileText = function (node) {
     if (!expressions) return;
 
     expressions.forEach((expression) => {
+        console.log(expression)
         let el = document.createTextNode('');
         node.parentNode.insertBefore(el, node);
         let property = expression.replace(/[{}]/g, '');
+        console.log(property)
+        console.log('end')
         this._bindDirective('text', property, el);
     });
 

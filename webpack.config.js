@@ -2,10 +2,11 @@
  * Created by youngwind on 16/8/1.
  */
 
+const webpack = require('webpack');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
-
 module.exports = {
-    watch: true,
+    // watch: true,
+    mode: 'development',
     entry: {
         index: ['./src/index.js'],
         example: ['./example/index.js']
@@ -14,26 +15,25 @@ module.exports = {
         path: __dirname + '/dist',
         filename: "[name].js"
     },
+    devServer: {
+        hot: true
+    },
     module: {
-        preLoaders: [
+        rules: [
             {
-                test: /\.js$/,
-                loader: "eslint-loader",
+                test: /\.js?$/,
+                loaders: ['babel-loader'],
                 exclude: /node_modules/
-            }
-        ],
-        loaders: [
-            {
-                test: /\.js$/,
-                exclude: /node_modules/,
-                loader: 'babel'
             }
         ]
     },
     plugins: [
         new CopyWebpackPlugin([
-            {from: './example/index.html'}
-        ], {})
+            {
+                from: './example/index.html'
+            }
+        ], {}),
+        new webpack.NamedModulesPlugin(),
+        new webpack.HotModuleReplacementPlugin()
     ]
-
 };
