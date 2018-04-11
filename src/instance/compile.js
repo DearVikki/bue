@@ -14,19 +14,19 @@ exports._compileElement = function (node) {
 };
 
 exports._compileText = function (node) {
-    let patt = /{{\w+}}/g;
+    let patt = /{{.+}}/g;
     let nodeValue = node.nodeValue;
     let expressions = nodeValue.match(patt);  // 这是一个数组,形如["{{name}}"];
+    console.log('nodeValue',nodeValue)
+    console.log('expressions',expressions)
 
     if (!expressions) return;
 
     expressions.forEach((expression) => {
-        console.log(expression)
         let el = document.createTextNode('');
         node.parentNode.insertBefore(el, node);
+        // property为取出{{name}}里的name
         let property = expression.replace(/[{}]/g, '');
-        console.log(property)
-        console.log('end')
         this._bindDirective('text', property, el);
     });
 
@@ -34,6 +34,7 @@ exports._compileText = function (node) {
 };
 
 exports._compileNode = function (node) {
+    console.log('node',node, 'nodeType', node.nodeType)
     switch (node.nodeType) {
         // text
         case 1:

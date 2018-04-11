@@ -9,10 +9,10 @@ function Bue(options) {
 Bue.prototype = {
     constructor: Bue,
     ...require('./instance/init'),
-    ...require('./instance/compile'),
+    ...require('./instance/compile'), // compile系列和bindDirective
     ...require('./api/lifecycle'),
     ...require('./api/data'),
-    ...require('./instance/bindings'),
+    ...require('./instance/bindings'), // ._updateBindingAt
     observer: {...require('./observer/observer')}
 };
 

@@ -165,6 +165,7 @@ Observer.prototype.off = function (event, fn) {
  */
 Observer.prototype.notify = function (event, path, val) {
     this.emit(event, path, val);
+    console.log(path)
     let parent = this.parent;
     if (!parent) return;
     let ob = parent.ob;
