@@ -3,37 +3,39 @@
  */
 
 var CopyWebpackPlugin = require('copy-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = {
-    watch: true,
-    entry: {
-        index: ['./src/index.js'],
-        example: ['./example/index.js']
-    },
-    output: {
-        path: __dirname + '/dist',
-        filename: "[name].js"
-    },
-    module: {
-        preLoaders: [
-            {
-                test: /\.js$/,
-                loader: "eslint-loader",
-                exclude: /node_modules/
-            }
-        ],
-        loaders: [
-            {
-                test: /\.js$/,
-                exclude: /node_modules/,
-                loader: 'babel'
-            }
-        ]
-    },
-    plugins: [
-        new CopyWebpackPlugin([
-            {from: './example/index.html'}
-        ], {})
-    ]
-
+     // watch: true,
+     mode: 'development',
+     entry: {
+         index: ['./src/index.js'],
+         example: ['./example/index.js']
+     },
+     output: {
+         path: __dirname + '/dist',
+         filename: "[name].js"
+     },
+     devServer: {
+         hot: true
+     },
+     module: {
+         rules: [
+             {
+                 test: /\.js?$/,
+                 loaders: ['babel-loader'],
+                 exclude: /node_modules/
+             }
+         ]
+     },
+     plugins: [
+         new CopyWebpackPlugin([
+             {
+                 from: './example/index.html'
+             }
+         ], {}),
+         new webpack.NamedModulesPlugin(),
+         new webpack.HotModuleReplacementPlugin()
+     ]
+ 
 };

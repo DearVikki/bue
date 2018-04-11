@@ -43,6 +43,7 @@ exports._compileTextNode = function (node) {
             this._bindDirective('text', value, el);
         } else {
             // 普通文本节点
+            // 对 文本还是要填进去的啦
             let el = document.createTextNode(token.value);
             _.before(el, node);
         }

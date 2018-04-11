@@ -30,7 +30,7 @@ function Watcher(vm, expression, cb, ctx) {
 Watcher.prototype.addDep = function (path) {
     let vm = this.vm;
     let binding = vm._createBindingAt(path);
-    binding._addSub(this);
+    // binding._addSub(this);
 };
 
 /**

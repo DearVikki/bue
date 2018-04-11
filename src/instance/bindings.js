@@ -14,6 +14,7 @@ exports._updateBindingAt = function () {
     let path = arguments[1];
     let pathAry = path.split('.');
     let r = this._rootBinding;
+    console.log(path)
     pathAry.forEach((key) => {
         r = r[key];
     });

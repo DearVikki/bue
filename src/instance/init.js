@@ -19,6 +19,7 @@ exports._init = function (options) {
     this.$data = options.data || {};
 
     // 初始化data, 主要是做Observer,数据监听这一块
+    // 即 Observer.create(data)
     this._initData(options.data);
 
     // binding、watcher、directive是实现动态数据绑定的三大核心对象
@@ -30,6 +31,7 @@ exports._init = function (options) {
 
     // 解析DOM模板, 渲染真实的DOM
     if (options.el) {
-        this.$mount(options.el);
+        // compile部分
+        // this.$mount(options.el); 
     }
 };

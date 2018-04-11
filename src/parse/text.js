@@ -19,6 +19,7 @@ exports.parse = function (text) {
         }
         index = match.index;
         value = match[1];
+        // 觉得这个打标签还蛮不错的！
         tokens.push({
             tag: true,
             value: value.trim()
