@@ -74,7 +74,8 @@ Observer.prototype.convert = function (key, val) {
             if (newVal === val) return;
             val = newVal;
             ob.notify('set', key, newVal);
-            ob.notify(`set:${key}`, key, newVal);
+            // 下面这句暂时觉得没必要？
+            // ob.notify(`set:${key}`, key, newVal);
         }
     });
 };
@@ -179,10 +180,15 @@ Observer.prototype.notify = function (event, path, val) {
  * @param event {path} 事件触发路径
  *
  */
+// 重要！！即使每层都emit这儿来了
+// 但是只有this === app.observer的时候才有this._cb
+// 子层级.observer的_cb是为空的
+// 所以其实所有的变化事件都是“冒泡”到顶级，在到顶级来处理的
 Observer.prototype.emit = function (event, path, val) {
     this._cbs = this._cbs || {};
     let callbacks = this._cbs[event];
     if (!callbacks) return;
+    // 如上 只有path为全path 即user.name这样时 才能走到这一步
     callbacks = callbacks.slice(0);
     callbacks.forEach((cb, i) => {
         callbacks[i].apply(this, arguments);

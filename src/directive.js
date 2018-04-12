@@ -14,7 +14,7 @@ import _ from './util';
  * @constructor
  */
 function Directive(name, el, vm, descriptor) {
-    this.name = name;
+    this.name = name; // 文本节点或其他！
     this.el = el;
     this.vm = vm;
     this.expression = descriptor.expression;
@@ -34,12 +34,13 @@ Directive.prototype._bind = function () {
     if (!this.expression) return;
 
     this._watcher = new Watcher(
-        this.vm,
+        this.vm, // vm是首级Bue实例 即app
         this.expression,
         this._update,  // 回调函数,目前是唯一的,就是更新DOM
-        this,           // 上下文
+        this,           // this是当前Directive实例
     );
 
+    // update对应directives>text.js里的update 具体是更新这个Directive实例里的el的值
     this.update();
 };
 
@@ -51,6 +52,8 @@ Directive.prototype._bind = function () {
  */
 Directive.prototype._initDef = function () {
     let def = this.vm.$options.directives[this.name];
+    // 文本节点里隐藏着update方法！
+    // 这里其实是给每个Directive实例都绑上了update text的方法呀！
     _.extend(this, def);
 };
 

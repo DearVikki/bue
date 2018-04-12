@@ -27,10 +27,11 @@ function Watcher(vm, expression, cb, ctx) {
  * 然后把当前的watcher对象添加到创建的binding对象上
  * @param path {string} 指令表达式对应的路径, 例如"user.name"
  */
+// 把watcher放在binding实例对象的_sub里！
 Watcher.prototype.addDep = function (path) {
     let vm = this.vm;
     let binding = vm._createBindingAt(path);
-    // binding._addSub(this);
+    binding._addSub(this);
 };
 
 /**

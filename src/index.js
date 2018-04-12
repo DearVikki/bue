@@ -13,8 +13,8 @@ Bue.prototype = {
     ...require('./instance/element'),
     ...require('./instance/bindings'),
     ...require('./instance/scope'),
-    ...require('./api/lifecycle'),
-    ...require('./api/data')
+    ...require('./api/lifecycle'), // 含有mount
+    ...require('./api/data') // 绑定this.$watch = new Watcher()
 };
 
 Bue.options = {

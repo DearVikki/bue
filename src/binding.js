@@ -19,6 +19,7 @@ function Binding() {
  * @private
  */
 Binding.prototype._addChild = function (key) {
+    // key就是字段名 比如user.name 那么key就会依次是user和name
     return this[key] || new Binding();
 };
 

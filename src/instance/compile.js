@@ -40,6 +40,7 @@ exports._compileTextNode = function (node) {
             let value = token.value;
             let el = document.createTextNode('');
             _.before(el, node);
+            // 如果遇到使用data的就把这个数据放到directives数组里去
             this._bindDirective('text', value, el);
         } else {
             // 普通文本节点
@@ -75,6 +76,7 @@ exports._compileNode = function (node) {
  * @private
  */
 exports._bindDirective = function (name, value, node) {
+    // console.log('to add Directive..')
     let descriptors = dirParser.parse(value);
     let dirs = this._directives;
     descriptors.forEach((descriptor) => {
